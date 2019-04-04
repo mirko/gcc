@@ -21366,6 +21366,49 @@ else
   glibcxx_cv_PTHREAD_MUTEX_CLOCKLOCK=no
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+
+          if test x"$ac_cv_search_clock_gettime" = x"none required"; then
+            ac_has_clock_monotonic=yes
+            ac_has_clock_realtime=yes
+          fi
+        fi
+        ac_has_nanosleep=yes
+        ac_has_sched_yield=yes
+        ;;
+      freebsd*|netbsd*|dragonfly*|rtems*)
+        ac_has_clock_monotonic=yes
+        ac_has_clock_realtime=yes
+        ac_has_nanosleep=yes
+        ac_has_sched_yield=yes
+        ;;
+      openbsd*)
+        ac_has_clock_monotonic=yes
+        ac_has_clock_realtime=yes
+        ac_has_nanosleep=yes
+        ;;
+      solaris*)
+        GLIBCXX_LIBS="$GLIBCXX_LIBS -lrt"
+        ac_has_clock_monotonic=yes
+        ac_has_clock_realtime=yes
+        ac_has_nanosleep=yes
+        ac_has_sched_yield=yes
+        ;;
+    esac
+
+  elif test x"$enable_libstdcxx_time" = x"yes"; then
+    # xtensa-esp32: This sets the same settings for canadian cross and native builds
+    ac_has_clock_monotonic=yes
+    ac_has_clock_realtime=yes
+    ac_has_nanosleep=no
+    ac_has_sched_yield=yes
+
+  elif test x"$enable_libstdcxx_time" != x"no"; then
+
+    if test x"$enable_libstdcxx_time" = x"rt"; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing clock_gettime" >&5
+$as_echo_n "checking for library containing clock_gettime... " >&6; }
+if test "${ac_cv_search_clock_gettime+set}" = set; then :
+  $as_echo_n "(cached) " >&6
 else
   if test x$gcc_no_link = xyes; then
   as_fn_error $? "Link tests are not allowed after GCC_NO_EXECUTABLES." "$LINENO" 5

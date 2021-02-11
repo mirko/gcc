@@ -168,10 +168,12 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   __throw_ios_failure(const char* __s __attribute__((unused)))
   { _GLIBCXX_THROW_OR_ABORT(__ios_failure(_(__s))); }
 
+#if __cpp_rtti
   void
   __throw_ios_failure(const char* str __attribute__((unused)),
 		      int err __attribute__((unused)))
   { _GLIBCXX_THROW_OR_ABORT(__ios_failure(_(str), err)); }
+#endif
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace
